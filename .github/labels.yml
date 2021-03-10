@@ -1,0 +1,11 @@
+- name: "release:major"
+  color: "25ddc8"
+  description: "Create a new major release."
+
+- name: "release:minor"
+  color: "e819be"
+  description: "Create a new minor release."
+
+- name: "release:patch"
+  color: "e99695"
+  description: "Create a new patch."

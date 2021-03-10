@@ -1,0 +1,28 @@
+name: Run Build Tests
+
+on: push
+
+jobs:
+  run-build-tests:
+    name: Run Build Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.13.5
+
+      - name: Init
+        run: terraform init
+
+      - name: Lint
+        id: fmt
+        run: terraform fmt -check
+
+      - name: Validate
+        id: validate
+        run: terraform validate -no-color

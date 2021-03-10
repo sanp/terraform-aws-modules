@@ -1,0 +1,22 @@
+name: Generate labels
+
+on: pull_request
+
+jobs:
+  labeler:
+    name: Generate labels
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Create labels
+        if: success()
+        uses: crazy-max/ghaction-github-labeler@v3
+        with:
+          yaml-file: .github/labels.yml
+          skip-delete: false
+          dry-run: false

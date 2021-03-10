@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  release:
+    name: Tag and release
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Create release tag
+        id: release
+        uses: rymndhng/release-on-push-action@v0.16.0
+        with:
+          # By default, a new release bumps the minor version. To specify a
+          # different kind of release, use one of the followihg labels on the
+          # pull request in GitHub: release:major, release:minor, or
+          # release:patch.
+          bump_version_scheme: minor
+
+      - name: Echo version and release
+        run: |
+          echo "Git tag name ${{ steps.release.outputs.tag_name }}"
+          echo "Git release version ${{ steps.release.outputs.version }}"
